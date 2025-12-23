@@ -51,7 +51,7 @@ const handleSubmit =(e) =>{
                 >
                     {/* logo image */}
                     <Link to="/">
-                    <img src='src\assets\logo.png' alt="logo" style={{ width: "120px", height: "30px" }}></img>
+                    <img src='logo.png' alt="logo" style={{ width: "120px", height: "30px" }}></img>
                     </Link>
 
 
@@ -134,7 +134,7 @@ const handleSubmit =(e) =>{
                                 "&:active": { transform: "scale(0.5)",display:{} }
                             }}>
 
-                                <img src='src\assets\user.png' style={{ width: "100%", height: "100%", borderRadius: "50%" }}></img>
+                                <img src='user.png' style={{ width: "100%", height: "100%", borderRadius: "50%" }}></img>
                             </Box>
                         </Box>
                     </Box>
