@@ -11,7 +11,7 @@ function Footer() {
         textAlign: "center",
         backgroundColor: "rgba(82,82,82,0.35)", // neutral-600 + opacity
         color: "rgba(163,163,163,1)",          // neutral-400
-     py:0.5
+     py:2
       }}
     >
 

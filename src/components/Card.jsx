@@ -1,10 +1,10 @@
-import { Box,Typography} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-function Card({ data, trending, index,media_type }) {
+function Card({ data, trending, index, media_type }) {
   const imageURL = useSelector((state) => state.movieoData.imageURL);
   const mediaType = data.media_type ?? media_type
   return (
@@ -16,58 +16,58 @@ function Card({ data, trending, index,media_type }) {
         position: "relative",
         borderRadius: 2,
         overflow: "hidden",
-         transition: "transform 0.3s ease",
-            "&:hover": {
-              transform: "scale(1.05)",
-            },
+        transition: "transform 0.3s ease",
+        "&:hover": {
+          transform: "scale(1.05)",
+        },
       }}
     >
-      <Link to={"/"+mediaType+"/"+data.id}
+      <Link to={"/" + mediaType + "/" + data.id}
         style={{
           textDecoration: "none",
           color: "inherit",
           display: "block",
           height: "100%",
-           
+
         }}
       >
-         {/* Poster */}
+        {/* Poster */}
         {
           data?.poster_path ? (
 
-            
-        <Box
-          component="img"
-          src={imageURL + data?.poster_path}
-          alt={data?.title || data?.name}
-          sx={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          
-          }}
-        />
-          ) : ( <Box
-  sx={{
-    backgroundColor: "#262626",
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }}
->
-  <Typography
-    variant="body2"
-    sx={{ color: "white" }}
-  >
-    No image found
-  </Typography>
-</Box>)
+
+            <Box
+              component="img"
+              src={imageURL + data?.poster_path}
+              alt={data?.title || data?.name}
+              sx={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+
+              }}
+            />
+          ) : (<Box
+            sx={{
+              backgroundColor: "#262626",
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              variant="body2"
+              sx={{ color: "white" }}
+            >
+              No image found
+            </Typography>
+          </Box>)
         }
 
-       
+
 
         {/* Trending badge */}
         {trending && (

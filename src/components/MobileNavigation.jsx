@@ -18,10 +18,11 @@ function MobileNavigation() {
                 bottom: 0,
                 width: "100%",
                 zIndex: 40,
+                
             }}
         >
 
-            <Box sx={{display:"flex", justifyContent:"space-between", height:"100%", alignItems:"center",color:"var(--text-neutral-400)"}}>
+            <Box sx={{display:"flex", justifyContent:"space-around", height:"100%", alignItems:"center",color:"var(--text-neutral-400)",width:""}}>
                 {
                     mobileNavigation.map((nav, index) => {
                         return (

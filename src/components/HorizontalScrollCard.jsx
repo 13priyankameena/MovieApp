@@ -10,7 +10,7 @@ function HorizontalScrollCard({
   trending = false,
   media_type,
 }) {
-  const containerRef = useRef(null);
+  const containerRef = useRef(null);   //containerRef is a object like a pointer
 
   const handleNext = () => {
     containerRef.current.scrollBy({
