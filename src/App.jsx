@@ -38,7 +38,7 @@ useEffect(()=>{
   fetchConfiguration()
 },[])
   return (
-    <Box component="main" sx={{pb:{xs:"56px",lg:0}}}>
+    <Box component="main" sx={{pb:{xs:"58px",lg:0}}}>
      
       <Header/>
       <Box sx={{

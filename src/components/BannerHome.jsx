@@ -5,6 +5,7 @@ import { original } from '@reduxjs/toolkit'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { IconButton } from "@mui/material"
+import { Link } from 'react-router-dom'
 
 
 function BannerHome() {
@@ -47,7 +48,8 @@ function BannerHome() {
             }}>
                 {
                     bannerData.map((data, index) => {
-                       
+                        console.log("data in banner", data);
+
                         return (
                             <Box className="group"
                                 key={data.id + "bannerHome" + index} sx={{
@@ -106,26 +108,27 @@ function BannerHome() {
                                     </Box>
 
 
-
-                                    <Button variant="contained" color="success" sx={{
-                                        mt: 2,
-                                        mb: 4,
-                                        px: 4,
-                                        py: 1,
-                                        backgroundColor: "white",
-                                        color: "black",
-                                        fontWeight: "bold",
-                                        borderRadius: 2,
-                                        boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
-                                        transition: "all 0.3s ease",
-                                        "&:hover": {
-                                            background: "linear-gradient(to left, #b91c1c, #f97316)", // red → orange
-                                            color: "white",
-                                            transform: "scale(1.05)",
-                                        },
-                                    }}>
-                                        Play Now
-                                    </Button>
+                                    <Link to={"/"+(data?.media_type ? data.media_type : "movie") + "/" + data.id} style={{ textDecoration: 'none' }}>
+                                        <Button variant="contained" color="success" sx={{
+                                            mt: 2,
+                                            mb: 4,
+                                            px: 4,
+                                            py: 1,
+                                            backgroundColor: "white",
+                                            color: "black",
+                                            fontWeight: "bold",
+                                            borderRadius: 2,
+                                            boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+                                            transition: "all 0.3s ease",
+                                            "&:hover": {
+                                                background: "linear-gradient(to left, #b91c1c, #f97316)", // red → orange
+                                                color: "white",
+                                                transform: "scale(1.05)",
+                                            },
+                                        }}>
+                                            Play Now
+                                        </Button>
+                                    </Link>
 
                                 </Box>
 

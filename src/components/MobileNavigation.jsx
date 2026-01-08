@@ -10,7 +10,7 @@ function MobileNavigation() {
             component="section"
             sx={{
                 display: { lg: "none" },
-                height: "60px",
+                height: "70px",
                 backgroundColor: "rgba(0,0,0,0.7)",
                 backdropFilter: "blur(24px)",
                 position: "fixed",
@@ -22,7 +22,7 @@ function MobileNavigation() {
             }}
         >
 
-            <Box sx={{display:"flex", justifyContent:"space-around", height:"100%", alignItems:"center",color:"var(--text-neutral-400)",width:""}}>
+            <Box sx={{display:"flex", justifyContent:"space-between", height:"100%", alignItems:"center",color:"var(--text-neutral-400)",width:"100%"}}>
                 {
                     mobileNavigation.map((nav, index) => {
                         return (
@@ -46,8 +46,8 @@ function MobileNavigation() {
                                     },
                                 }}
                             >
-                                <Box>{nav.icon}</Box>
-                              <Typography sx={{whiteSpace: "nowrap"}}>{nav.label}</Typography> 
+                                <Box sx={{fontSize:{xs:"10px",md:"18px"}}}>{nav.icon}</Box>
+                              <Typography sx={{whiteSpace: "nowrap",fontSize:{xs:"10px",md:"18px"}}}>{nav.label}</Typography> 
                             </Box>
                         )
                     })

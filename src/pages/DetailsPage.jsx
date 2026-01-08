@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useFetchDetail from '../hooks/useFetchDetail'
 import { useSelector } from 'react-redux'
-import { Box } from '@mui/system'
-import { Typography } from '@mui/material'
+import { Box, grid, } from '@mui/system'
+import { Typography, Button } from '@mui/material'
 import Grid from '@mui/material/Grid'
-
+import Videoplay from '../components/VideoPlay'
 import Divider from '@mui/material/Divider'
 import moment from 'moment'
+import HorizontalScrollCard from '../components/HorizontalScrollCard'
 
 
 
@@ -17,12 +18,24 @@ function DetailsPage() {
   const imageURL = useSelector(state => state.movieoData.imageURL)
   const { data } = useFetchDetail(`/${params?.explore}/${params?.id}`)
   const { data: castData } = useFetchDetail(`/${params?.explore}/${params?.id}/credits`)
+  const { data: similarData } = useFetchDetail(`/${params?.explore}/${params?.id}/similar`)
+  const { data: recommendData } = useFetchDetail(`/${params?.explore}/${params?.id}/recommendations`)
+  const [playVideo, setPlayVideo] = useState(false);
+  const [playvideoId, setPlayVideoId] = useState("");
 
   console.log("data", data)
   console.log("CastData", castData)
+  console.log("similarData", similarData)
+  console.log("recommendData", recommendData)
 
-   const writer = castData?.crew?.filter(el => el?.job === "Writer")?.map(el => el?.name)?.join(", ")
-  const duration = (data?.runtime/60)?.toFixed(1)?.split(".")
+  const handlePlayVideo = (data) => {
+    setPlayVideoId(data);
+    setPlayVideo(true);
+  }
+
+
+  const writer = castData?.crew?.filter(el => el?.job === "Writer")?.map(el => el?.name)?.join(", ")
+  const duration = (data?.runtime / 60)?.toFixed(1)?.split(".")
 
   return (
     <>
@@ -32,6 +45,7 @@ function DetailsPage() {
           height: "280px",
           position: "relative",
           display: { xs: "none", lg: "block" }, // hidden lg:block
+
         }}
       >
         {/* Image */}
@@ -94,10 +108,33 @@ function DetailsPage() {
               display: "block",
             }}
           />
+
+          <Button variant="contained"
+            onClick={() => handlePlayVideo(data)}
+            sx={{
+              mt: 2,
+              mb: 4,
+              px: 4,
+              py: 1,
+              width: "240px",
+              backgroundColor: "white",
+              color: "black",
+              fontWeight: "bold",
+              borderRadius: 2,
+              boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                background: "linear-gradient(to left, #b91c1c, #f97316)", // red → orange
+                color: "white",
+                transform: "scale(1.05)",
+              },
+            }}>
+            Play Now
+          </Button>
         </Box>
 
 
-        <Box>
+        <Box sx={{ mx: "auto", px: { xs: "4px" } }}>
           {/* Title */}
           <Typography
             sx={{
@@ -114,7 +151,7 @@ function DetailsPage() {
             {data?.tagline}
           </Typography>
 
-          <Divider sx={{ my: 1,backgroundColor:"#363636" }} />
+          <Divider sx={{ my: 1, backgroundColor: "#363636" }} />
 
           {/* Rating / Views / Duration */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -134,7 +171,7 @@ function DetailsPage() {
             </Typography>
           </Box>
 
-          <Divider sx={{ my: 1,backgroundColor:"#363636" }} />
+          <Divider sx={{ my: 1, backgroundColor: "#363636" }} />
 
           {/* Overview */}
           <Box>
@@ -146,7 +183,7 @@ function DetailsPage() {
 
             <Typography sx={{ mb: 2 }}>{data?.overview}</Typography>
 
-            <Divider sx={{ my: 1 ,backgroundColor:"#363636"}} />
+            <Divider sx={{ my: 1, backgroundColor: "#363636" }} />
 
             {/* Status / Release / Revenue */}
             <Box
@@ -173,7 +210,7 @@ function DetailsPage() {
 
             </Box>
 
-            <Divider sx={{ my: 1,backgroundColor:"#363636" }} />
+            <Divider sx={{ my: 1, backgroundColor: "#363636" }} />
           </Box>
 
           {/* Director & Writer */}
@@ -185,7 +222,7 @@ function DetailsPage() {
               : {castData?.crew[0]?.name}
             </Typography>
 
-            <Divider sx={{ my: 1,backgroundColor:"#363636" }} />
+            <Divider sx={{ my: 1, backgroundColor: "#363636" }} />
 
             <Typography>
 
@@ -197,14 +234,14 @@ function DetailsPage() {
             </Typography>
           </Box>
 
-          <Divider sx={{ my: 1 ,backgroundColor:"#363636"}} />
+          <Divider sx={{ my: 1, backgroundColor: "#363636" }} />
 
           {/* Cast */}
           <Typography sx={{ fontWeight: "bold", fontSize: "18px", mb: 2 }}>
             Cast :
           </Typography>
 
-          <Grid container spacing={3}>
+          <Grid container spacing={4} >
             {castData?.cast
               ?.filter((el) => el?.profile_path)
               .map((starCast, index) => (
@@ -235,7 +272,26 @@ function DetailsPage() {
               ))}
           </Grid>
         </Box>
+
+
+
       </Box>
+
+      {/* Similar Movies/TV Shows */}
+
+      <HorizontalScrollCard data={similarData?.results || []} heading={"Similar Data"} media_type={params?.explore} />
+
+      {/* Recommended Movies/TV Shows */}
+
+      <HorizontalScrollCard data={recommendData?.results || []} heading={"Recommended Data"} media_type={params?.explore} />
+
+
+
+
+      {
+        playVideo && <Videoplay data={playvideoId} close={() => setPlayVideo(false)} media_type={params?.explore} />
+      }
+
     </>
 
 
